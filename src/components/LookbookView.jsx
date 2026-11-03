@@ -1,13 +1,19 @@
-const LOOKS = [1, 2, 3, 4, 5, 6].map(n => `images/lookbook-${n}.jpg`)
+import { imgUrl } from '../utils/img'
 
-export default function LookbookView() {
+const STATIC_LOOKS = [1, 2, 3, 4, 5, 6].map(n => `images/lookbook-${n}.jpg`)
+
+export default function LookbookView({ products = [] }) {
+  const images = products.length > 0
+    ? products.flatMap(p => p.images.map(img => ({ url: img.url, alt: p.name })))
+    : STATIC_LOOKS.map(src => ({ url: src, alt: '' }))
+
   return (
     <div id="lookbook-view">
-      {LOOKS.map((src, i) => (
+      {images.map((img, i) => (
         <figure key={i} className="look">
           <img
-            src={src}
-            alt=""
+            src={imgUrl(img.url, 800)}
+            alt={img.alt}
             loading="lazy"
             onError={e => {
               e.target.style.display = 'none'

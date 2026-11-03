@@ -19,7 +19,7 @@ function initialView() {
 }
 
 export default function App() {
-  const { products, store, loading, error, lockEnabled } = useProducts()
+  const { products, galleryProducts, store, loading, error, lockEnabled } = useProducts()
   const checkout = useCheckout(store)
 
   const [view, setView] = useState(initialView)
@@ -89,7 +89,7 @@ export default function App() {
         onBag={() => navigateTo('checkout')}
       />
 
-      <LookbookView />
+      <LookbookView products={galleryProducts} />
 
       <ContactView onClose={() => navigateTo('home')} />
 
