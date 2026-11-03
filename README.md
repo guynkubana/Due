@@ -43,10 +43,10 @@ cp .env.example .env
 ```env
 VITE_MUGIKARI_API_KEY=your_api_key_here
 VITE_MUGIKARI_STORE=Due
-VITE_MUGIKARI_BASE=https://mugikari.xyz
+VITE_MUGIKARI_BASE=https://api.mugikari.xyz
 ```
 
-`.env` is gitignored and must never be committed. `.env.example` has all keys empty as a template.
+`.env` is gitignored and must never be committed. `.env.example` has all keys with defaults as a template.
 
 ### Dev server
 
@@ -54,9 +54,7 @@ VITE_MUGIKARI_BASE=https://mugikari.xyz
 npm run dev
 ```
 
-The dev server runs on `http://localhost:5173` (or the next available port). It proxies all `/api` requests to `https://mugikari.xyz` via Vite's built-in proxy, which bypasses CORS during local development. The `.env.development` file sets `VITE_MUGIKARI_BASE=` (empty) to force relative URLs so the proxy is used.
-
-In production, `VITE_MUGIKARI_BASE=https://mugikari.xyz` is used directly and the proxy is not involved.
+The dev server runs on `http://localhost:5173` (or the next available port). Both `.env` and `.env.development` point `VITE_MUGIKARI_BASE` directly to `https://api.mugikari.xyz`, so requests go straight to the API — no proxy needed. A Vite proxy for `/api` is still configured in `vite.config.js` as a fallback but is not used in normal development.
 
 ### Build
 
@@ -78,9 +76,8 @@ npm run preview
 due/
 ├── public/
 │   ├── images/
-│   │   ├── logo.png          # Static wordmark (shop top-left)
+│   │   ├── logo.png          # Static wordmark + favicon
 │   │   └── logo-anim.gif     # Animated logo (home hub + password screen)
-│   ├── favicon.svg
 │   └── icons.svg
 ├── src/
 │   ├── api/
@@ -174,7 +171,7 @@ Card payments show a "not available yet" message. Only Mobile Money is active.
 | File | Committed | Purpose |
 |---|---|---|
 | `.env` | No | Live API key and config |
-| `.env.development` | Yes | Sets `VITE_MUGIKARI_BASE=` (empty) to force proxy |
+| `.env.development` | Yes | Sets `VITE_MUGIKARI_BASE=https://api.mugikari.xyz` for local dev |
 | `.env.example` | Yes | Template with all keys empty |
 
 ---
@@ -185,4 +182,4 @@ The app builds to a static `dist/` folder and can be deployed to any static host
 
 For Vercel: import the GitHub repo, set the three `VITE_*` environment variables in the Vercel project settings, and deploy. No additional configuration needed — Vite's output is a standard static site.
 
-> The Vite dev proxy is only active during local development (`npm run dev`). In production, `VITE_MUGIKARI_BASE` must point to `https://mugikari.xyz` and the Mugikari server must allow CORS from the production domain.
+> Set `VITE_MUGIKARI_BASE=https://api.mugikari.xyz` in Vercel's environment variables. Using `https://mugikari.xyz` (without the `api.` subdomain) will cause CORS failures in production due to a server-side redirect that browsers block during preflight.

@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://mugikari.xyz',
+        target: 'https://api.mugikari.xyz',
         changeOrigin: true,
         secure: true,
       },
