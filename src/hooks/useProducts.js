@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react'
 import { fetchProducts, fetchStore } from '../api/mugikari'
 
+const SITE_LOCK_ID = '84f71c40-a584-4278-bc42-5e38eb7ae53d'
+
 export function useProducts() {
   const [products, setProducts] = useState([])
   const [store, setStore] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [lockEnabled, setLockEnabled] = useState(true)
 
   useEffect(() => {
     let cancelled = false
@@ -14,7 +17,8 @@ export function useProducts() {
       try {
         const [prods, storeData] = await Promise.all([fetchProducts(), fetchStore()])
         if (cancelled) return
-        setProducts(prods)
+        setLockEnabled(prods.some(p => p.id === SITE_LOCK_ID))
+        setProducts(prods.filter(p => p.id !== SITE_LOCK_ID))
         setStore(storeData)
       } catch (err) {
         if (cancelled) return
@@ -28,5 +32,5 @@ export function useProducts() {
     return () => { cancelled = true }
   }, [])
 
-  return { products, store, loading, error }
+  return { products, store, loading, error, lockEnabled }
 }

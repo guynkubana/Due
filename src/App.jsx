@@ -19,7 +19,7 @@ function initialView() {
 }
 
 export default function App() {
-  const { products, store, loading, error } = useProducts()
+  const { products, store, loading, error, lockEnabled } = useProducts()
   const checkout = useCheckout(store)
 
   const [view, setView] = useState(initialView)
@@ -36,6 +36,10 @@ export default function App() {
   useEffect(() => {
     document.body.className = 'view-' + view
   }, [view])
+
+  useEffect(() => {
+    if (!loading && !lockEnabled) setView('home')
+  }, [loading, lockEnabled])
 
   function navigateTo(name) {
     if (name === 'checkout' && view !== 'checkout') setPrevView(view)
