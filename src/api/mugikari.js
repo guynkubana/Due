@@ -30,12 +30,7 @@ function normalizeProduct(p) {
       ? [p.imageUrl]
       : []
 
-  let sizeChart = null
-  if (p.sizeChart && typeof p.sizeChart === 'string') {
-    try { sizeChart = JSON.parse(p.sizeChart) } catch (_) {}
-  } else if (p.sizeChart && typeof p.sizeChart === 'object') {
-    sizeChart = p.sizeChart
-  }
+  const sizeChart = (p.sizeChart && p.sizeChart !== 'null') ? p.sizeChart : null
 
   return { ...p, images, sizeChart }
 }

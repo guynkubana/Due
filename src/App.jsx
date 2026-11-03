@@ -28,7 +28,6 @@ export default function App() {
   const [currentProduct, setCurrentProduct] = useState(0)
   const [previewOpen, setPreviewOpen] = useState(false)
   const [sizeGuideOpen, setSizeGuideOpen] = useState(false)
-  const [pendingAdd, setPendingAdd] = useState(false)
   const [selectedSizes, setSelectedSizes] = useState({})
   const [searchOpen, setSearchOpen] = useState(false)
   const [termsOpen, setTermsOpen] = useState(false)
@@ -52,19 +51,6 @@ export default function App() {
     setView(name)
   }
 
-  function handleSizeSelect(size) {
-    setSelectedSizes(prev => ({ ...prev, [currentProduct]: size }))
-    setSizeGuideOpen(false)
-    if (pendingAdd) {
-      setPendingAdd(false)
-      const p = products[currentProduct]
-      const variant = (p.variants || []).find(v => v.name === size)
-      const price = (variant?.priceOverride != null) ? variant.priceOverride : p.price
-      checkout.addToBag(p, variant?.id || null, size, price)
-      setPreviewOpen(false)
-      navigateTo('checkout')
-    }
-  }
 
   function handleAddToBag(product, variantId, variantName, price) {
     checkout.addToBag(product, variantId, variantName, price)
@@ -138,15 +124,13 @@ export default function App() {
         onSelectSize={size => setSelectedSizes(prev => ({ ...prev, [currentProduct]: size }))}
         onSizeGuide={() => setSizeGuideOpen(true)}
         onAddToBag={handleAddToBag}
-        onClose={() => { setPreviewOpen(false); setPendingAdd(false) }}
+        onClose={() => setPreviewOpen(false)}
       />
 
       <SizeGuideModal
         open={sizeGuideOpen}
         product={products[currentProduct]}
-        selectedSize={selectedSizes[currentProduct]}
-        onSelectSize={handleSizeSelect}
-        onClose={() => { setSizeGuideOpen(false); setPendingAdd(false) }}
+        onClose={() => setSizeGuideOpen(false)}
       />
 
       <SearchBar

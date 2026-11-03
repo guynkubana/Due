@@ -1,4 +1,4 @@
-export default function SizeGuideModal({ open, product, selectedSize, onSelectSize, onClose }) {
+export default function SizeGuideModal({ open, product, onClose }) {
   const chart = product?.sizeChart
 
   return (
@@ -7,28 +7,10 @@ export default function SizeGuideModal({ open, product, selectedSize, onSelectSi
       <div id="size-modal" className={open ? 'open' : ''}>
         <button id="size-modal-close" aria-label="Close" onClick={onClose}>×</button>
         <div id="size-modal-title">Size guide — {product?.name}</div>
-        <div id="size-modal-sub">Measurements in inches — tap a row to select</div>
         {chart ? (
-          <table id="size-table">
-            <thead id="size-table-head">
-              <tr>{chart.columns.map(c => <th key={c}>{c}</th>)}</tr>
-            </thead>
-            <tbody id="size-table-body">
-              {chart.rows.map(row => (
-                <tr
-                  key={row[0]}
-                  className={`size-row${selectedSize === row[0] ? ' selected' : ''}`}
-                  onClick={() => onSelectSize(row[0])}
-                >
-                  {row.map((cell, i) => <td key={i}>{cell}</td>)}
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div id="size-chart-text">{chart}</div>
         ) : (
-          <p style={{ fontSize: '0.78rem', color: 'var(--grey)', padding: '1rem 0' }}>
-            Size chart not available for this product.
-          </p>
+          <p id="size-chart-empty">Size chart not available for this product.</p>
         )}
         <p id="size-modal-note">Between sizes? Size up for a looser, drop-shoulder fit.</p>
       </div>
