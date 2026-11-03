@@ -12,6 +12,7 @@ import LookbookView from './components/LookbookView'
 import SearchBar from './components/SearchBar'
 import TermsPanel from './components/TermsPanel'
 import EmailModal from './components/EmailModal'
+import CreditsModal from './components/CreditsModal'
 
 function initialView() {
   try { return sessionStorage.getItem('due_unlocked') === '1' ? 'home' : 'password' }
@@ -32,6 +33,7 @@ export default function App() {
   const [searchOpen, setSearchOpen] = useState(false)
   const [termsOpen, setTermsOpen] = useState(false)
   const [emailOpen, setEmailOpen] = useState(false)
+  const [creditsOpen, setCreditsOpen] = useState(false)
 
   useEffect(() => {
     document.body.className = 'view-' + view
@@ -110,6 +112,7 @@ export default function App() {
       <div className="footer-cluster">
         <button onClick={() => setTermsOpen(true)}>Terms</button>
         <button onClick={() => setEmailOpen(true)}>Email</button>
+        <button onClick={() => setCreditsOpen(true)}>Credits</button>
       </div>
 
       <ShopStage
@@ -156,6 +159,7 @@ export default function App() {
       <TermsPanel open={termsOpen} onClose={() => setTermsOpen(false)} />
 
       <EmailModal open={emailOpen} onClose={() => setEmailOpen(false)} />
+      <CreditsModal open={creditsOpen} onClose={() => setCreditsOpen(false)} />
     </>
   )
 }

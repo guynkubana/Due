@@ -13,7 +13,6 @@ function shuffle(arr) {
 }
 
 export default function ShopStage({ products, currentProduct, onNavigate, onDiscover, loading, error }) {
-  const [flipped, setFlipped] = useState(false)
   const [fading, setFading] = useState(false)
   const cycleQueue = useRef([])
   const containerRef = useRef(null)
@@ -29,11 +28,7 @@ export default function ShopStage({ products, currentProduct, onNavigate, onDisc
     }
   }, [products.length])
 
-  // Reset flip on product change
-  useEffect(() => {
-    setFlipped(false)
-    hideLens()
-  }, [currentProduct])
+  useEffect(() => { hideLens() }, [currentProduct])
 
   function goToRandom() {
     if (products.length < 2) return
@@ -72,7 +67,6 @@ export default function ShopStage({ products, currentProduct, onNavigate, onDisc
 
   const p = products[currentProduct]
   const front = p?.images?.[0]
-  const back = p?.images?.[1] || p?.images?.[0]
   const counter = products.length
     ? String(currentProduct + 1).padStart(2, '0') + ' / ' + String(products.length).padStart(2, '0')
     : ''
@@ -94,17 +88,9 @@ export default function ShopStage({ products, currentProduct, onNavigate, onDisc
 
       <main>
         <div id="stage" className={fading ? 'fading' : ''}>
-          <div
-            id="product-image"
-            ref={containerRef}
-            className={flipped ? 'flipped' : ''}
-            onClick={() => p && setFlipped(f => !f)}
-          >
+          <div id="product-image" ref={containerRef}>
             <div className="img-layer img-front" ref={frontRef}>
-              {front && <img src={imgUrl(front, 900)} alt={p?.name + ' — front'} loading="eager" fetchPriority="high" />}
-            </div>
-            <div className="img-layer img-back">
-              {back && <img src={imgUrl(back, 900)} alt={p?.name + ' — back'} loading="lazy" />}
+              {front && <img src={imgUrl(front, 900)} alt={p?.name} loading="eager" fetchPriority="high" />}
             </div>
           </div>
 
