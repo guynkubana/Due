@@ -66,6 +66,14 @@ export async function validateDiscount({ code, subtotal }) {
   })
 }
 
+export async function subscribeNewsletter({ email, name }) {
+  return request(`${BASE}/api/public/newsletter?${storeParam}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(name ? { email, name } : { email }),
+  })
+}
+
 export async function submitOrder({ idempotencyKey, customer, items, discountCode, deliveryNotes }) {
   const body = { idempotencyKey, customer, items }
   if (discountCode) body.discountCode = discountCode

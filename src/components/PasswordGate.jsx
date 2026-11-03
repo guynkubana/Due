@@ -1,7 +1,7 @@
 import { useState } from 'react'
+import { subscribeNewsletter } from '../api/mugikari'
 
 const SITE_PASSWORD = 'thebestitw'
-const FORMSPREE = 'https://formspree.io/f/xgaeozwo'
 
 export default function PasswordGate({ onUnlock }) {
   const [modalOpen, setModalOpen] = useState(false)
@@ -19,10 +19,9 @@ export default function PasswordGate({ onUnlock }) {
     if (!email) return
     setSubBusy(true)
     try {
-      const fd = new FormData()
-      fd.append('email', email)
-      const res = await fetch(FORMSPREE, { method: 'POST', headers: { Accept: 'application/json' }, body: fd })
-      setSubStatus(res.ok ? 'You\'re on the list.' : 'Something went wrong.')
+      await subscribeNewsletter({ email })
+      setSubStatus('You\'re on the list.')
+      e.target.reset()
     } catch {
       setSubStatus('Something went wrong.')
     } finally {

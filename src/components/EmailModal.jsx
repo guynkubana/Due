@@ -1,6 +1,5 @@
 import { useState } from 'react'
-
-const FORMSPREE = 'https://formspree.io/f/xgaeozwo'
+import { subscribeNewsletter } from '../api/mugikari'
 
 export default function EmailModal({ open, onClose }) {
   const [status, setStatus] = useState('')
@@ -10,10 +9,10 @@ export default function EmailModal({ open, onClose }) {
     e.preventDefault()
     setBusy(true)
     try {
-      const fd = new FormData(e.target)
-      const res = await fetch(FORMSPREE, { method: 'POST', headers: { Accept: 'application/json' }, body: fd })
-      if (res.ok) { setStatus('You\'re on the list.'); e.target.reset() }
-      else setStatus('Something went wrong.')
+      const email = e.target.elements.email.value.trim()
+      await subscribeNewsletter({ email })
+      setStatus('You\'re on the list.')
+      e.target.reset()
     } catch {
       setStatus('Something went wrong.')
     } finally {
