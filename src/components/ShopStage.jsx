@@ -19,10 +19,13 @@ export default function ShopStage({ products, currentProduct, onNavigate, onDisc
   const containerRef = useRef(null)
   const frontRef = useRef(null)
 
-  // Build cycle queue once products load
+  // Build cycle queue + preload all images once products load
   useEffect(() => {
     if (products.length > 0) {
       cycleQueue.current = shuffle(products.map((_, i) => i).filter(i => i !== currentProduct))
+      products.forEach(p => {
+        p?.images?.forEach(src => { if (src) { new Image().src = imgUrl(src, 900) } })
+      })
     }
   }, [products.length])
 
@@ -98,7 +101,7 @@ export default function ShopStage({ products, currentProduct, onNavigate, onDisc
             onClick={() => p && setFlipped(f => !f)}
           >
             <div className="img-layer img-front" ref={frontRef}>
-              {front && <img src={imgUrl(front, 900)} alt={p?.name + ' — front'} loading="eager" fetchpriority="high" />}
+              {front && <img src={imgUrl(front, 900)} alt={p?.name + ' — front'} loading="eager" fetchPriority="high" />}
             </div>
             <div className="img-layer img-back">
               {back && <img src={imgUrl(back, 900)} alt={p?.name + ' — back'} loading="lazy" />}
