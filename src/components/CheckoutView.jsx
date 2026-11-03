@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { fmt } from '../utils/fmt'
+import { imgUrl } from '../utils/img'
 
 const DISTRICTS = {
   'Kigali City': ['Gasabo', 'Kicukiro', 'Nyarugenge'],
@@ -174,7 +175,7 @@ export default function CheckoutView({ bag, checkout, onBack, onContinue }) {
             ) : bag.map(item => (
               <div key={item.id} className="co-item">
                 <div className="co-thumb">
-                  {item.imageUrl && <img src={item.imageUrl} alt="" onError={e => { e.target.style.display = 'none' }} />}
+                  {item.imageUrl && <img src={imgUrl(item.imageUrl, 80)} alt="" loading="lazy" onError={e => { e.target.style.display = 'none' }} />}
                 </div>
                 <span className="co-item-name">{item.name}</span>
                 <span className="co-item-price">{fmt(item.price)}</span>

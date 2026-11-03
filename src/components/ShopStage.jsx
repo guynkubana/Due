@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { fmt } from '../utils/fmt'
+import { imgUrl } from '../utils/img'
 import { useMagnifier, hideLens } from '../hooks/useMagnifier'
 
 function shuffle(arr) {
@@ -97,10 +98,10 @@ export default function ShopStage({ products, currentProduct, onNavigate, onDisc
             onClick={() => p && setFlipped(f => !f)}
           >
             <div className="img-layer img-front" ref={frontRef}>
-              {front && <img src={front} alt={p?.name + ' — front'} />}
+              {front && <img src={imgUrl(front, 900)} alt={p?.name + ' — front'} loading="eager" fetchpriority="high" />}
             </div>
             <div className="img-layer img-back">
-              {back && <img src={back} alt={p?.name + ' — back'} />}
+              {back && <img src={imgUrl(back, 900)} alt={p?.name + ' — back'} loading="lazy" />}
             </div>
           </div>
 

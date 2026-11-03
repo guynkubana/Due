@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { fmt } from '../utils/fmt'
+import { imgUrl } from '../utils/img'
 import { useMagnifier, hideLens } from '../hooks/useMagnifier'
 
 export default function PreviewModal({
@@ -55,7 +56,7 @@ export default function PreviewModal({
         <div id="preview-gallery">
           <div id="preview-main" ref={mainRef}>
             {images[imgIndex] && (
-              <img src={images[imgIndex]} alt={`${product?.name} photo ${imgIndex + 1}`} />
+              <img src={imgUrl(images[imgIndex], 900)} alt={`${product?.name} photo ${imgIndex + 1}`} loading="eager" />
             )}
             {!images[imgIndex] && (
               <div className="pv-ph" style={{ display: 'flex' }}>[ no image ]</div>
@@ -71,7 +72,7 @@ export default function PreviewModal({
                   aria-label={`Photo ${i + 1}`}
                   onClick={() => setImgIndex(i)}
                 >
-                  <img src={src} alt="" />
+                  <img src={imgUrl(src, 120)} alt="" loading="lazy" />
                 </button>
               ))}
             </div>

@@ -8,6 +8,7 @@ export default function LookbookView() {
           <img
             src={src}
             alt=""
+            loading="lazy"
             onError={e => {
               e.target.style.display = 'none'
               e.target.nextSibling.style.display = 'flex'
