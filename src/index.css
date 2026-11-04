@@ -383,6 +383,22 @@
     cursor:pointer;
   }
   .footer-cluster button:hover{color:var(--ink);}
+  .footer-right{
+    position:fixed;
+    bottom:1.5rem;right:1.5rem;
+    z-index:50;
+  }
+  .footer-right button{
+    background:none;
+    border:none;
+    font-family:'Courier New', Courier, monospace;
+    font-size:0.72rem;
+    letter-spacing:0.04em;
+    color:var(--grey);
+    cursor:pointer;
+    padding:0;
+  }
+  .footer-right button:hover{color:var(--ink);}
 
   /* ---------- TERMS PANEL (full screen) ---------- */
   #terms-panel{
@@ -604,6 +620,7 @@
     margin-bottom:1.2rem;
   }
   #credits-body{font-size:0.8rem; line-height:1.7; color:var(--grey);}
+  #credits-body p{margin:0 0 0.5rem;}
   #credits-body a{color:var(--ink); text-decoration:underline; text-underline-offset:3px;}
   #credits-body a:hover{opacity:0.6;}
 
@@ -971,6 +988,7 @@
   body:not(.view-shop) main{display:none;}
   body:not(.view-shop):not(.view-lookbook):not(.view-contact) .wordmark{display:none;}
   body:not(.view-shop):not(.view-home) .footer-cluster{display:none;}
+  body:not(.view-shop):not(.view-home) .footer-right{display:none;}
 
   /* ---------- LOGO SLOT (drop your PNG at images/logo.png) ---------- */
   .logo-slot{

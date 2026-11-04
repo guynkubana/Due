@@ -6,6 +6,7 @@ export default function CreditsModal({ open, onClose }) {
         <button id="credits-modal-close" aria-label="Close" onClick={onClose}>×</button>
         <div id="credits-modal-title">Credits</div>
         <div id="credits-body">
+          <p>Creative Direction &amp; Design by Due</p>
           <p>Website polished by <a href="https://www.instagram.com/hkevink/" target="_blank" rel="noopener">@hkevink</a></p>
         </div>
       </div>

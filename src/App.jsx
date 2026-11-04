@@ -98,6 +98,8 @@ export default function App() {
       <div className="footer-cluster">
         <button onClick={() => setTermsOpen(true)}>Terms</button>
         <button onClick={() => setEmailOpen(true)}>Email</button>
+      </div>
+      <div className="footer-right">
         <button onClick={() => setCreditsOpen(true)}>Credits</button>
       </div>
 
