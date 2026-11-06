@@ -55,8 +55,8 @@ export function useMagnifier(containerRef, getImgRef, onSwipeRef) {
       const dy = e.clientY - start.y
       const dt = Date.now() - start.t
       start = null
+      hideLens()
       if (onSwipeRef?.current && Math.abs(dx) > 50 && Math.abs(dy) < 45 && dt < 450) {
-        hideLens()
         onSwipeRef.current(dx < 0 ? 1 : -1)
       }
     }

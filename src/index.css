@@ -6,6 +6,7 @@
     --danger:#c0392b;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
+  button{-webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent;color:inherit;}
   html,body{
     height:100%;
     background:var(--bg);
