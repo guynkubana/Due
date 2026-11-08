@@ -7,7 +7,9 @@ export default function LookbookView({ products = [] }) {
 
   return (
     <div id="lookbook-view">
-      {images.map((img, i) => (
+      {images.length === 0 ? (
+        <div id="lookbook-empty">coming soon.</div>
+      ) : images.map((img, i) => (
         <figure key={i} className="look">
           <img
             src={imgUrl(img.url, 800)}
@@ -19,7 +21,7 @@ export default function LookbookView({ products = [] }) {
             }}
           />
           <div className="look-ph">[ look {i + 1} ]</div>
-          <figcaption></figcaption>
+          <figcaption>{String(i + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}</figcaption>
         </figure>
       ))}
     </div>
