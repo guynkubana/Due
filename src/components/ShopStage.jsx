@@ -23,7 +23,7 @@ export default function ShopStage({ products, currentProduct, onNavigate, onDisc
     if (products.length > 0) {
       cycleQueue.current = shuffle(products.map((_, i) => i).filter(i => i !== currentProduct))
       products.forEach(p => {
-        p?.images?.forEach(src => { if (src) { new Image().src = imgUrl(src, 900) } })
+        p?.images?.forEach(url => { if (url) { new Image().src = imgUrl(url, 900) } })
       })
     }
   }, [products.length])
@@ -66,7 +66,7 @@ export default function ShopStage({ products, currentProduct, onNavigate, onDisc
   useMagnifier(containerRef, getImgRef, onSwipeRef)
 
   const p = products[currentProduct]
-  const front = p?.images?.[0]
+  const front = p?.images?.[0] || p?.imageUrl
   const counter = products.length
     ? String(currentProduct + 1).padStart(2, '0') + ' / ' + String(products.length).padStart(2, '0')
     : ''

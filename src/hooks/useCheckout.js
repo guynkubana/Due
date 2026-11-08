@@ -55,7 +55,7 @@ export function useCheckout(store) {
         setDiscount(null)
       }
     } catch (err) {
-      const code = err.data?.error
+      const errCode = err.data?.error
       const messages = {
         INVALID_DISCOUNT: 'Invalid code.',
         DISCOUNT_EXPIRED: 'This code has expired.',
@@ -63,7 +63,7 @@ export function useCheckout(store) {
         DISCOUNT_EXHAUSTED: 'This code has been used up.',
         MINIMUM_NOT_MET: 'Order total too low for this code.',
       }
-      setDiscountError(messages[code] || 'Invalid code.')
+      setDiscountError(messages[errCode] || 'Invalid code.')
       setDiscount(null)
     } finally {
       setDiscountLoading(false)
@@ -108,12 +108,12 @@ export function useCheckout(store) {
         paymentInstructions: store?.paymentInstructions || '',
       })
     } catch (err) {
-      const code = err.data?.error
+      const errCode = err.data?.error
       const messages = {
         OUT_OF_STOCK: 'One or more items are out of stock.',
         VALIDATION_ERROR: 'Please check your order details.',
       }
-      setOrderError(messages[code] || err.message || 'Something went wrong — try again.')
+      setOrderError(messages[errCode] || err.message || 'Something went wrong — try again.')
     } finally {
       setOrderSending(false)
     }

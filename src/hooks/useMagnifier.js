@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 
 const ZOOM = 2.4
 const TOUCH_LIFT = 110

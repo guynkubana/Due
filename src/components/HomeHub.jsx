@@ -1,4 +1,7 @@
+import { useDarkReader } from '../hooks/useDarkReader'
+
 export default function HomeHub({ bagCount, onShop, onLookbook, onContact, onBag }) {
+  const darkReader = useDarkReader()
   return (
     <div id="home-view">
       <button className="home-point home-north" onClick={onShop}>
@@ -10,7 +13,12 @@ export default function HomeHub({ bagCount, onShop, onLookbook, onContact, onBag
         <span className="home-hover">neverbeendone</span>
       </button>
       <div className="logo-slot">
-        <img className="logo-img" src="/images/logo-anim.gif" alt="DUE" onError={e => { e.target.src = '/images/logo.png' }} />
+        <img
+          className="logo-img"
+          src={darkReader ? '/DUESITEICONS/LIGHT/faviconversion1.png' : '/images/logo-anim.gif'}
+          alt="DUE"
+          onError={e => { e.target.src = '/images/logo.png' }}
+        />
       </div>
       <button className="home-point home-east" onClick={onContact}>
         <span className="home-label">Contact</span>

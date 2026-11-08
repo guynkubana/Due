@@ -12,7 +12,7 @@ const DISTRICTS = {
 
 export default function CheckoutView({ bag, checkout, onBack, onContinue }) {
   const {
-    shippingFee, bagSubtotal, discountedSubtotal, total,
+    shippingFee, bagSubtotal, total,
     discount, discountError, discountLoading, checkDiscount,
     orderSending, orderError, placeOrder, confirmed, resetConfirmed,
     removeFromBag,

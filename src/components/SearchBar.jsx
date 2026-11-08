@@ -35,7 +35,7 @@ export default function SearchBar({ open, products, onSelect, onClose }) {
           {query.trim() && results.length === 0 && (
             <div className="search-empty">No results for "{query}"</div>
           )}
-          {results.map((p, i) => {
+          {results.map((p) => {
             const idx = products.indexOf(p)
             return (
               <div key={p.id} className="search-result" onClick={() => onSelect(idx)}>

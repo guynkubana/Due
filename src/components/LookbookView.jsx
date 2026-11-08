@@ -1,7 +1,9 @@
 import { imgUrl } from '../utils/img'
 
 export default function LookbookView({ products = [] }) {
-  const images = products.flatMap(p => p.images.map(img => ({ url: img.url, alt: p.name })))
+  const images = products.flatMap(p =>
+    p.images.map(url => ({ url, alt: p.name }))
+  )
 
   return (
     <div id="lookbook-view">
@@ -10,7 +12,7 @@ export default function LookbookView({ products = [] }) {
           <img
             src={imgUrl(img.url, 800)}
             alt={img.alt}
-            loading="lazy"
+            loading="eager"
             onError={e => {
               e.target.style.display = 'none'
               e.target.nextSibling.style.display = 'flex'

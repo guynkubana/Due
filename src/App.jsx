@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useDarkReader } from './hooks/useDarkReader'
 import { useProducts } from './hooks/useProducts'
 import { useCheckout } from './hooks/useCheckout'
 import PasswordGate from './components/PasswordGate'
@@ -21,6 +22,7 @@ function initialView() {
 
 export default function App() {
   const { products, galleryProducts, store, loading, error, lockEnabled } = useProducts()
+  const darkReader = useDarkReader()
   const checkout = useCheckout(store)
 
   const [view, setView] = useState(initialView)
@@ -83,7 +85,12 @@ export default function App() {
 
       {/* Shop chrome — wordmark, top-right cluster, footer */}
       <button className="wordmark" id="home-link" aria-label="Back to home" onClick={() => navigateTo('home')}>
-        <img className="wordmark-logo" src="/images/logo.png" alt="DUE" onError={e => { e.target.style.display = 'none' }} />
+        <img
+          className="wordmark-logo"
+          src={darkReader ? '/DUESITEICONS/LIGHT/faviconversion1.png' : '/images/logo.png'}
+          alt="DUE"
+          onError={e => { e.target.style.display = 'none' }}
+        />
       </button>
       <div className="top-right-cluster">
         <button id="search-toggle" aria-label="Search" onClick={() => setSearchOpen(true)}>
